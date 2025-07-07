@@ -3,9 +3,11 @@ export interface BlipDocument {
   to?: string;
   type: string;
   direction?: "sent" | "received";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any;
   date: string;
   status?: "received";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: Record<string, any>;
 }
 
@@ -58,11 +60,13 @@ export interface PlainTextProps {
 export interface ReplyI {
   replied: {
     type: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any;
   };
   inReplyTo: {
     id: string;
     type: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any;
   };
 }
