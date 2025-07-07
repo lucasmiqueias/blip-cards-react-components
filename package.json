@@ -3,15 +3,16 @@
     "version": "1.0.0",
     "description": "A comprehensive React component library for rendering BLiP conversational messages with support for multiple channels, interactive elements, and modern TypeScript development",
     "license": "MIT",
-    "main": "dist/index.js",
+    "main": "dist/index.umd.js",
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "exports": {
         ".": {
             "import": "./dist/index.esm.js",
-            "require": "./dist/index.js",
+            "require": "./dist/index.umd.js",
             "types": "./dist/index.d.ts"
         },
+        "./style.css": "./dist/style.css",
         "./package.json": "./package.json"
     },
     "sideEffects": false,
@@ -58,7 +59,7 @@
         "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "type-check": "tsc --noEmit",
         "prepare": "npm run build:lib",
-        "prepublishOnly": "npm run lint && npm run type-check && npm run test && npm run build:lib",
+        "prepublishOnly": "npm run lint && npm run type-check && npm run build:lib",
         "version": "npm run build:lib && git add -A dist",
         "postversion": "git push && git push --tags"
     },

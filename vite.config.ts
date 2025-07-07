@@ -11,12 +11,20 @@ export default defineConfig(({ mode }) => {
       plugins: [
         react(),
         dts({
-          include: ["src"],
+          include: [
+            "src/index.ts",
+            "src/components/**/*.tsx",
+            "src/types/**/*.ts",
+          ],
           exclude: [
             "src/**/*.test.tsx",
             "src/**/*.test.ts",
             "src/**/*.stories.tsx",
+            "src/App.tsx",
+            "src/main.tsx",
+            "src/test/**/*",
           ],
+          rollupTypes: true,
         }),
       ],
       build: {
