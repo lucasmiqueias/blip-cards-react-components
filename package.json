@@ -6,10 +6,21 @@
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.esm.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "sideEffects": false,
     "author": "Lucas Miqueias",
     "private": false,
     "files": [
-        "dist"
+        "dist",
+        "README.md",
+        "LICENSE"
     ],
     "repository": {
         "type": "git",
@@ -31,6 +42,10 @@
         "messages",
         "unofficial"
     ],
+    "engines": {
+        "node": ">=16.0.0",
+        "npm": ">=8.0.0"
+    },
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
@@ -43,7 +58,7 @@
         "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "type-check": "tsc --noEmit",
         "prepare": "npm run build:lib",
-        "prepublishOnly": "npm run lint && npm run type-check && npm run build:lib",
+        "prepublishOnly": "npm run lint && npm run type-check && npm run test && npm run build:lib",
         "version": "npm run build:lib && git add -A dist",
         "postversion": "git push && git push --tags"
     },
@@ -55,6 +70,7 @@
         "@testing-library/jest-dom": "^6.1.5",
         "@testing-library/react": "^14.1.2",
         "@testing-library/user-event": "^14.5.1",
+        "@types/node": "^24.0.10",
         "@types/react": "^18.2.43",
         "@types/react-dom": "^18.2.17",
         "@typescript-eslint/eslint-plugin": "^6.14.0",
