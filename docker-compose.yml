@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Development environment
+  dev:
+    build:
+      context: .
+      target: development
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev -- --host 0.0.0.0
+
+  # Production build
+  build:
+    build:
+      context: .
+      target: build
+    volumes:
+      - ./dist:/app/dist
+    command: npm run build:lib
+
+  # Production environment (for testing)
+  prod:
+    build:
+      context: .
+      target: production
+    ports:
+      - "80:80"
+    depends_on:
+      - build
+
+  # Test environment
+  test:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm test
+
+  # Test with coverage
+  test-coverage:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./coverage:/app/coverage
+    command: npm run test:coverage

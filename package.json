@@ -1,0 +1,80 @@
+{
+    "name": "blip-cards-react-components",
+    "version": "1.0.0",
+    "description": "A comprehensive React component library for rendering BLiP conversational messages with support for multiple channels, interactive elements, and modern TypeScript development",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "types": "dist/index.d.ts",
+    "author": "Lucas Miqueias",
+    "private": false,
+    "files": [
+        "dist"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lucasmiqueias/blip-cards-react-components.git"
+    },
+    "bugs": {
+        "url": "https://github.com/lucasmiqueias/blip-cards-react-components/issues"
+    },
+    "homepage": "https://github.com/lucasmiqueias/blip-cards-react-components#readme",
+    "keywords": [
+        "react",
+        "component",
+        "blip",
+        "chatbot",
+        "lime",
+        "typescript",
+        "conversational",
+        "whatsapp",
+        "messages",
+        "unofficial"
+    ],
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "build:lib": "vite build --mode lib",
+        "preview": "vite preview",
+        "test": "vitest",
+        "test:ui": "vitest --ui",
+        "test:coverage": "vitest --coverage",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+        "type-check": "tsc --noEmit",
+        "prepare": "npm run build:lib",
+        "prepublishOnly": "npm run lint && npm run type-check && npm run test && npm run build:lib",
+        "version": "npm run build:lib && git add -A dist",
+        "postversion": "git push && git push --tags"
+    },
+    "peerDependencies": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^6.1.5",
+        "@testing-library/react": "^14.1.2",
+        "@testing-library/user-event": "^14.5.1",
+        "@types/react": "^18.2.43",
+        "@types/react-dom": "^18.2.17",
+        "@typescript-eslint/eslint-plugin": "^6.14.0",
+        "@typescript-eslint/parser": "^6.14.0",
+        "@vitejs/plugin-react": "^4.2.1",
+        "@vitest/coverage-v8": "^1.0.4",
+        "@vitest/ui": "^1.0.4",
+        "eslint": "^8.55.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.5",
+        "jsdom": "^23.0.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.2.2",
+        "vite": "^5.0.8",
+        "vite-plugin-dts": "^3.6.4",
+        "vitest": "^1.0.4"
+    },
+    "dependencies": {
+        "@lucasmiqueias/blip-tokens": "^1.0.0",
+        "clsx": "^2.0.0"
+    }
+}

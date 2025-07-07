@@ -1,0 +1,96 @@
+/* Reply Component Styles */
+
+.reply-message {
+  margin-bottom: var(--spacing-3);
+}
+
+.reply-reference {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background-color: var(--surface-0);
+  border-left: 3px solid var(--color-secondary);
+  border-radius: var(--radius-sm);
+  font-size: 0.875em;
+  opacity: 0.9;
+}
+
+.reply-icon {
+  font-size: 1em;
+  color: var(--color-secondary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.reply-original-content {
+  flex: 1;
+  min-width: 0; /* Allow text truncation */
+}
+
+.reply-original-text {
+  color: var(--content-muted);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.reply-original-media,
+.reply-original-other {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  color: var(--content-muted);
+}
+
+.reply-media-icon {
+  font-size: 1em;
+  flex-shrink: 0;
+}
+
+.reply-media-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reply-content {
+  /* Remove extra margins from the inner content */
+}
+
+.reply-content .plain-text {
+  margin-bottom: 0;
+}
+
+.reply-content .bubble {
+  /* Slightly reduce max-width for reply messages */
+  max-width: 65%;
+}
+
+/* Position-specific styles */
+.reply-message--left .reply-reference {
+  border-left-color: var(--color-secondary);
+}
+
+.reply-message--right .reply-reference {
+  border-left-color: var(--color-primary);
+}
+
+.reply-message--right .reply-icon {
+  color: var(--color-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reply-reference {
+    padding: var(--spacing-1) var(--spacing-2);
+    font-size: 0.8em;
+  }
+
+  .reply-content .bubble {
+    max-width: 75%;
+  }
+}

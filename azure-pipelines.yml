@@ -1,0 +1,121 @@
+# Azure Pipelines configuration for BLiP Cards React Components
+trigger:
+  - main
+  - develop
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  - group: npmjs-blip-variables
+
+stages:
+  - stage: BuildAndTest
+    displayName: "Build and Test"
+    jobs:
+      - job: BuildAndTest
+        displayName: "Build and Test Job"
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "18.x"
+            displayName: "Install Node.js"
+
+          - script: |
+              npm ci
+            displayName: "Install dependencies"
+
+          - script: |
+              npm run lint
+            displayName: "Run ESLint"
+
+          - script: |
+              npm run type-check
+            displayName: "TypeScript type check"
+
+          - script: |
+              npm run test:coverage
+            displayName: "Run tests with coverage"
+
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFormat: "JUnit"
+              testResultsFiles: "**/test-results.xml"
+              failTaskOnFailedTests: true
+            displayName: "Publish test results"
+
+          - task: PublishCodeCoverageResults@1
+            inputs:
+              codeCoverageTool: "Cobertura"
+              summaryFileLocation: "coverage/cobertura-coverage.xml"
+              reportDirectory: "coverage"
+            displayName: "Publish code coverage"
+
+          - script: |
+              npm run build:lib
+            displayName: "Build library"
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: "dist"
+              artifactName: "dist"
+            displayName: "Publish build artifacts"
+
+  - stage: Deploy
+    displayName: "Deploy to NPM"
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployToNPM
+        displayName: "Deploy to NPM"
+        environment: "npm-production"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: dist
+
+                - task: NodeTool@0
+                  inputs:
+                    versionSpec: "18.x"
+                  displayName: "Install Node.js"
+
+                - script: |
+                    npm ci --only=production
+                  displayName: "Install production dependencies"
+
+                - task: Npm@1
+                  inputs:
+                    command: "publish"
+                    publishRegistry: "useExternalRegistry"
+                    publishEndpoint: "NPM Registry"
+                  displayName: "Publish to NPM"
+
+  - stage: DockerBuild
+    displayName: "Build Docker Image"
+    dependsOn: BuildAndTest
+    condition: succeeded()
+    jobs:
+      - job: DockerBuild
+        displayName: "Build Docker Image"
+        steps:
+          - task: Docker@2
+            inputs:
+              command: "build"
+              Dockerfile: "Dockerfile"
+              tags: |
+                $(Build.Repository.Name):$(Build.BuildId)
+                $(Build.Repository.Name):latest
+              arguments: "--target production"
+            displayName: "Build Docker image"
+
+          - task: Docker@2
+            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+            inputs:
+              command: "push"
+              tags: |
+                $(Build.Repository.Name):$(Build.BuildId)
+                $(Build.Repository.Name):latest
+            displayName: "Push Docker image"
