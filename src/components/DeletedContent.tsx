@@ -1,12 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-
-interface DeletedContentProps {
-  position: "left" | "right";
-  externalMessage?: boolean;
-  externalMessageText?: string;
-  messageDeleted?: string;
-}
+import { DeletedContentProps } from "../types";
 
 const DeletedContent: React.FC<DeletedContentProps> = ({
   position,
@@ -14,6 +8,7 @@ const DeletedContent: React.FC<DeletedContentProps> = ({
   externalMessageText = "External message",
   messageDeleted = "This message was deleted",
 }) => {
+  
   return (
     <div className="blip-card-container">
       <div className="blip-card blip-deleted-content">

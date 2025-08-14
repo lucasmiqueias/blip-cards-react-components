@@ -1,0 +1,42 @@
+html {
+  font-size: 16px;
+}
+
+:root {
+  --whatsapp-font-base: .875rem;
+  --whatsapp-font-min: .6875rem;
+  --radius-bubble: 7.5px 7.5px 7.5px 7.5px;
+  --font-family-whatsapp: "Segoe UI",Helvetica Neue,Helvetica,Lucida Grande,Arial,Ubuntu,Cantarell,Fira Sans,sans-serif;
+  --padding-bubble-whatsapp: 6px 7px 8px 9px;
+  --whatsapp-bg: #FFFFFF;
+  --whatsapp-bg-to: #D9FDD3;
+  --shadow-rgb: 11, 20, 26;
+  --whatsapp-message-primary: #0A0A0A;
+  --whatsapp-message-secondary: #0A0A0A;
+  --whatsapp-message-opacity: 1;
+  --line-height-base: 1.2rem;
+  --bubble-whatsapp-date-dark: rgba(0, 0, 0, 0.6);
+  --bubble-whatsapp-date-white: rgba(255, 255, 255, 0.6);
+}
+
+:root[data-theme="dark"], .theme-dark {
+  --whatsapp-bg: #1D1E1E;
+  --whatsapp-bg-to: #144D37;
+  --shadow-rgb: 11, 20, 26;
+  --whatsapp-message-primary: #fafafa;
+  --whatsapp-message-secondary: #fafafa;
+  --whatsapp-message-opacity: 1;
+  --bubble-whatsapp-date-from: rgba(--bubble-whatsapp-date-white);
+  --bubble-whatsapp-date-to: var(--bubble-whatsapp-date-white);
+}
+
+:root[data-theme="light"], .theme-light {
+  --whatsapp-bg: #FFFFFF;
+  --whatsapp-bg-to: #D9FDD3;
+  --shadow-rgb: 11, 20, 26;
+  --whatsapp-message-primary: #0A0A0A;
+  --whatsapp-message-secondary: #0A0A0A;
+  --whatsapp-message-opacity: .75;
+  --bubble-whatsapp-date-from: rgba(--bubble-whatsapp-date-white);
+  --bubble-whatsapp-date-to: var(--bubble-whatsapp-date-dark);
+}

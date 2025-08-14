@@ -2,7 +2,7 @@ import React from "react";
 import { BlipCardProps, BlipDocument } from "../types";
 
 // Componentes específicos para cada tipo
-import PlainText from "./PlainText";
+import PlainText from "./PlainText/index.tsx";
 import DeletedContent from "./DeletedContent";
 import UnsupportedContent from "./UnsupportedContent";
 import Reply from "./Reply";
@@ -20,6 +20,9 @@ const ContentRenderer: React.FC<BlipCardProps> = (props) => {
     editing = false,
     externalMessage = false,
     translations = {},
+    channel,
+    date,
+    status,
     onSave,
     onDelete,
     onCancel,
@@ -47,6 +50,7 @@ const ContentRenderer: React.FC<BlipCardProps> = (props) => {
         externalMessage={externalMessage}
         externalMessageText={externalMessageText}
         messageDeleted={messageDeleted}
+        channel={channel}
       />
     );
   }
@@ -100,6 +104,9 @@ const ContentRenderer: React.FC<BlipCardProps> = (props) => {
         editing={editing}
         memberInfo={memberInfo}
         fullDocument={document}
+        channel={channel}
+        date={date}
+        status={status}
         externalMessage={externalMessage}
         showMoreText={showMoreText}
         onSave={handleSave}

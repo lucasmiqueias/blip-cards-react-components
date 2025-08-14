@@ -1,6 +1,7 @@
 /* BlipCard Component Styles */
 
 .blip-card-item {
+  width: 100%;
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -32,7 +33,22 @@
 }
 
 .blip-card-item__content {
+  max-width: 100%;
+  display: block;
   grid-area: content;
+  word-break: break-word;
+}
+
+.blip-card-item__message.whatsapp {
+  color: var(--whatsapp-message-primary);
+}
+
+.blip-card-item__message.whatsapp.right {
+  color: var(--whatsapp-message-secondary);
+}
+
+.blip-card-item__message-text {
+  line-height: 100%;
 }
 
 /* Date */
@@ -40,6 +56,12 @@
   grid-area: date;
   font-size: var(--font-size-xs);
   color: var(--content-muted);
+  gap: 0px !important;
+}
+
+.blip-card-item__date svg path {
+  /* O SVG herda a cor do elemento pai (div com a classe) */
+  fill: currentColor;
 }
 
 .blip-card-item__date.left {
@@ -48,6 +70,31 @@
 
 .blip-card-item__date.right {
   text-align: right;
+}
+
+/* Date WhatsApp */
+.blip-card-item__date.whatsapp {
+  font-family: var(--font-family-whatsapp);
+  font-size: var(--whatsapp-font-min);
+  margin-bottom: -5px;
+  margin-top: -10px;
+  margin-left: 4px;
+  z-index: 10;
+  margin-right: 0;
+  float: right;
+}
+
+.blip-card-item__date.hidden {
+  visibility: hidden;
+  padding: 0 4px;
+}
+
+.blip-card-item__date.whatsapp.left {
+  color: var(--bubble-whatsapp-date-from);
+}
+
+.blip-card-item__date.whatsapp.right {
+  color: var(--bubble-whatsapp-date-to);
 }
 
 /* Blip Grid */
@@ -65,10 +112,15 @@
   flex-direction: row-reverse;
 }
 
+/* Blip Grid WhatsApp */
+.blip-grid.whatsapp {
+  gap: 0;
+}
+
 /* Bubble */
 .bubble {
   position: relative;
-  max-width: 70%;
+  max-width: 65%;
   font-size: var(--font-size-base);
   padding: 10px var(--spacing-2);
   border-radius: var(--radius-lg);
@@ -119,6 +171,42 @@
   background: var(--surface-3);
 }
 
+/* Bubble WhatsApp */
+.bubble.whatsapp {
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-bubble-whatsapp);
+  font-family: var(--font-family-whatsapp);
+  font-size: var(--whatsapp-font-base);
+  box-sizing: border-box;
+  line-height: var(--line-height-base);
+  background-color: var(--whatsapp-bg);
+  border: transparent;
+  border-radius: var(--radius-bubble);
+  box-shadow: 0 1px .5px rgba(var(--shadow-rgb),.13);
+}
+.bubble.whatsapp.left {
+  border-top-left-radius: 0px;
+}
+
+.bubble.whatsapp.right {
+  border-top-right-radius: 0px;
+  background-color: var(--whatsapp-bg-to);
+}
+
+/* tail-in */
+.blip-tail-in {
+  display: flex;
+}
+
+.blip-tail-in.left {
+  color: var(--whatsapp-bg);
+}
+
+.blip-tail-in.right {
+  color: var(--whatsapp-bg-to);
+}
+
 /* Base card styles */
 .blip-card {
   display: flex;
@@ -129,6 +217,5 @@
 
 .blip-show-more {
   color: var(--color-primary);
-  text-decoration: underline;
   font-weight: var(--font-weight-semibold);
 }

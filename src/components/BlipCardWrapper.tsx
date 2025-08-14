@@ -1,11 +1,13 @@
 import React from "react";
 import clsx from "clsx";
+import { useStatusIcon } from "../hooks/useStatusIcon";
 
 interface BlipCardWrapperProps {
   position: "left" | "right";
   photo?: string;
   date?: string;
   status?: "sending" | "sent" | "received" | "failed";
+  channel: string;
   children: React.ReactNode;
 }
 
@@ -15,35 +17,32 @@ const BlipCardWrapper: React.FC<BlipCardWrapperProps> = ({
   date,
   status,
   children,
+  channel,
 }) => {
-  const getStatusIcon = (status?: string) => {
-    switch (status) {
-      case "sending":
-        return "⏳";
-      case "sent":
-        return "✓";
-      case "received":
-        return "✓✓";
-      case "failed":
-        return "⚠️";
-      default:
-        return "";
-    }
-  };
+  const statusIcon = useStatusIcon(status);
+
+
+  const showPhoto = photo && position === "left" && channel === "BlipChat";
+
 
   return (
-    <div className="blip-card-item">
-      {photo && position === "left" && (
+    <div className={clsx("blip-card-item", channel.toLowerCase())}>
+      {showPhoto && (
         <img
           className={clsx("blip-card-item__photo", position)}
           src={photo}
           alt="Avatar"
         />
       )}
-      <div className={clsx("blip-card-item__content")}>{children}</div>
-      {date && (
-        <div className={clsx("blip-card-item__date", position)}>
-          {date} {getStatusIcon(status)}
+      <div className={clsx("blip-card-item__content")}>
+        {children}
+      </div>
+      {date && channel.toLowerCase() !== "whatsapp" && (
+        <div className={clsx("blip-card-item__date blip-grid", {
+          "blip-grid--row": position === "left",
+          "blip-grid--row-reverse": position === "right",
+        })}>
+          {date} {statusIcon}
         </div>
       )}
     </div>

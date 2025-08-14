@@ -25,6 +25,7 @@ export interface BlipCardProps {
   editable?: boolean;
   deletable?: boolean;
   memberInfo?: MemberInfo;
+  channel?: string;
   photo?: string;
   photoMargin?: number;
   length?: number;
@@ -44,9 +45,12 @@ export interface BlipCardProps {
 export interface PlainTextProps {
   document: string | BlipDocument;
   position: "left" | "right";
+  status?: "sending" | "sent" | "received" | "failed";
   editable?: boolean;
   deletable?: boolean;
   editing?: boolean;
+  channel?: string;
+  date?: string;
   memberInfo?: MemberInfo;
   fullDocument?: BlipDocument;
   externalMessage?: boolean;
@@ -55,6 +59,14 @@ export interface PlainTextProps {
   onDelete?: (document: BlipDocument) => void;
   onCancel?: () => void;
   onEdit?: () => void;
+}
+
+export interface DeletedContentProps {
+  position: "left" | "right";
+  externalMessage?: boolean;
+  externalMessageText?: string;
+  messageDeleted?: string;
+  channel?: string;
 }
 
 export interface ReplyI {
