@@ -39,6 +39,10 @@ const PlainText: React.FC<PlainTextProps> = ({
     }
   };
 
+  useEffect(() => {
+    setChannelState(channel);
+  }, [channel]);
+
   if (isEditing) {
     // TODO: Implement editing component
     return (
@@ -70,10 +74,6 @@ const PlainText: React.FC<PlainTextProps> = ({
   if (!previewDocument.content || previewDocument.content.length === 0) {
     return null;
   }
-
-  useEffect(() => {
-    setChannelState(channel);
-  }, [channel]);
 
   return (
     <>
