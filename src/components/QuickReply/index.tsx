@@ -8,8 +8,6 @@ const QuickReply: React.FC<BlipCardProps> = (props) => {
 
   const QuickReplyContent = document.content as QuickReplyI;
 
-  console.log("QuickReplyContent", QuickReplyContent);
-
   return (
     <div
       className={clsx("blip-grid", {

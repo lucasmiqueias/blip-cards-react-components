@@ -4,35 +4,37 @@ import { BlipDocument } from "./types";
 import { ThemeToggle } from "./components/ThemeToggle";
 // Import do novo design system
 import "@lucasmiqueias/blip-tokens/css";
+import "./styles/whatsapp.css";
+import ChannelToggle from "./components/ChannelToggle";
 
 const App: React.FC = () => {
+  const [activeChannel, setActiveChannel] = useState("WhatsApp");
   const [documents] = useState<BlipDocument[]>([
     {
       id: "1",
       direction: "sent",
       type: "text/plain",
       date: "2025-07-06T22:04:08.174Z",
-      content: "Hello! This is a simple.",
+      content: "asdakshdkajshdjkashdjkashdasdasjdlkajsdlkajsdlkjaklsdjaklsjdlkajsdklajskldjklajsdlkajsdklasjdklasdasdakshdkajshdjkashdjkashdasdasjdlkajsdlkajsdlkjaklsdjaklsjdlkajsdklajskldjklajsdlkajsdklasjdklasdasdakshdkajshdjkashdjkashdasdasjdlkajsdlkajsdlkjaklsdjaklsjdlkajsdklajskldjklajsdlkajsdklasjdklasdasdakshdkajshdjkashdjkashdasdasjdlkajsdlkajsdlkjaklsdjaklsjdlkajsdklajskldjklajsdlkajsdklasjdklasdasdakdasdakdasdakshdkajshdjkashdjkashdasdasjdlkajsdlkajsdlkjaklsdjaklsjdlkajsdklajskldjklajsdlkajsdklasjdklasdasdakshdksdasdakshdksdasdakshdkajshdjkashdjkashhdjkashdjkdasdasjdlkajsdlkajsdlkjaklsdjaklsjdlkajsdklajskldjklajsdlkajsdklasjdkdlkajsdklasjdklasddklajskldjklajsdlkadlkajsdklasjdklasdhdkajshdjkashdjkashdasdasjdlkaasdakshdkajshdjkashdjkashddlkajsdklajskldjklajsdlkajsdklasjdklasddklajskldjklajsdlkajskajshdjdasjhdasdasjdasjdlkaj123456789101112131415asdasd",
     },
     {
       id: "2",
-      direction: "sent",
+      direction: "received",
       type: "text/plain",
       date: "2025-07-06T22:04:08.174Z",
       content:
         "And this is a response from the right side. It can be a longer message to test how the component handles longer content and text wrapping.",
     },
     {
-      id: "3",
+      id: "4",
       direction: "sent",
-      type: "text/plain",
+      type: "application/vnd.lime.deleted-content+json",
       date: "2025-07-06T22:04:08.174Z",
-      content:
-        "This is a very long message that should trigger the show more functionality. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      content: null,
     },
     {
       id: "4",
-      direction: "sent",
+      direction: "received",
       type: "application/vnd.lime.deleted-content+json",
       date: "2025-07-06T22:04:08.174Z",
       content: null,
@@ -138,7 +140,7 @@ const App: React.FC = () => {
   const memberInfo = {
     name: "Bot Assistant",
     photo:
-      "https://ovicio.com.br/wp-content/uploads/2022/10/20221015-ffig-g0xoama72j-555x555.jpg",
+      "https://i.pinimg.com/736x/12/66/63/126663198bc00fd7e621a13896691c83.jpg",
   };
 
   const handleSave = (document: BlipDocument) => {
@@ -149,14 +151,21 @@ const App: React.FC = () => {
     console.log("Delete document:", document);
   };
 
+  const handleChannelChange = (channel: string) => {
+    setActiveChannel(channel);
+  };
+
   return (
-    <div className="app-container" style={{ width: "560px", margin: "0 auto" }}>
+    <div className="app-container" style={{ width: "760px", margin: "0 auto" }}>
       <div className="app-header">
         <h1>BLiP Cards React Components Demo</h1>
-        <ThemeToggle showLabels={true} />
+        <div className="app-header__toggles" style={{ display: "flex", gap: "10px" }}>
+          <ThemeToggle showLabels={true} />
+          <ChannelToggle onSelectChannel={handleChannelChange} />
+        </div>
       </div>
 
-      <div className="app-content">
+      <div className="app-content" style={{ width: "560px", margin: "0 auto" }}>
         <h2>Basic Examples</h2>
 
         {documents.map((doc) => (
@@ -164,11 +173,13 @@ const App: React.FC = () => {
             key={doc.id}
             document={doc}
             position={doc.direction === "received" ? "right" : "left"}
-            date={new Date().toLocaleTimeString()}
+            date={doc.date}
             status={doc.direction === "sent" ? "sent" : "received"}
+            channel={activeChannel}
             editable={false}
             deletable={false}
             photo={doc.direction === "sent" ? memberInfo.photo : undefined}
+            memberInfo={memberInfo}
             onSave={handleSave}
             onDelete={handleDelete}
             translations={{
