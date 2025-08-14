@@ -1,6 +1,6 @@
 {
     "name": "blip-cards-react-components",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "A comprehensive React component library for rendering BLiP conversational messages with support for multiple channels, interactive elements, and modern TypeScript development",
     "license": "MIT",
     "main": "dist/index.umd.js",
